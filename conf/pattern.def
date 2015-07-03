@@ -1,0 +1,1261 @@
+{
+	"version":"1012",
+	"require-engine":"5.0",
+	"category":{
+		"http":["其它","软件升级","压缩文件","文档资料","图片"],
+		"mobile":["android","ios","winphone"],
+		"video":["未知视频","优酷","土豆","搜狐","凤凰","网易","酷6网","56网","PPTV","央视","爆米花","第一视频","激动网","腾讯","新浪","爱奇艺","乐视","风行","ICNTV"]
+	},
+	"definition":[
+		{
+			"id":900,
+			"table_id":5,
+			"category":0,
+			"match":[
+				{"field":"extname", "pattern":"torrent", "relation":1}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":901,
+			"table_id":5,
+			"category":0,
+			"match":[
+				{"field":"query", "pattern":".torrent", "relation":3}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"${filename}",
+				"query":"${query}"
+			}
+		},
+		{
+			"id":902,
+			"table_id":3,
+			"category":0,
+			"match":[
+				{"field":"filename", "pattern":"announce", "relation":1},
+				{"field":"query", "pattern":"event=started", "relation":3},
+				{"field":"query", "pattern":"info_hash=([^&]+)", "relation":5}
+			],
+			"unique":{
+				"host":"",
+				"path":"",
+				"filename":"",
+				"query":"${1}"
+			}
+		},
+		{
+			"id":997,
+			"table_id":4,
+			"category":1,
+			"match":[
+				{"field":"host", "pattern":"v.youku.com", "relation":1},
+				{"field":"path", "pattern":"^/player/getPlayList/VideoIDS/([^/]+)(?:/|$)", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"/player/getPlayList/VideoIDS/${1}/",
+				"filename":"",
+				"query":""
+			}
+		},
+		{
+			"id":998,
+			"table_id":2,
+			"category":1,
+			"match":[
+				{"field":"domain", "pattern":"youku.com", "relation":1},
+				{"field":"path", "pattern":"^/player/getFlvPath/sid/[\\da-f]+_[\\dA-F]{2}/st/(\\w+)/fileid/$", "relation":5},
+				{"field":"query", "pattern":"yxon=1", "relation":4},
+				{"field":"query", "pattern":"(?:\\?|&)K=", "relation":5},
+				{"field":"query", "pattern":"(?:\\?|&)start=[1-9]", "relation":6}
+			],
+			"unique":{
+				"host":"youku.com",
+				"path":"/",
+				"filename":"${filename}.${1}",
+				"query":""
+			}
+		},
+		{
+			"id":999,
+			"table_id":2,
+			"category":1,
+			"match":[
+				{"field":"path", "pattern":"/youku/", "relation":3},
+				{"field":"host", "pattern":"^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$", "relation":5},
+				{"field":"filename", "pattern":"^.{70}$", "relation":5},
+				{"field":"query", "pattern":"(?:\\?|&)start=[1-9]", "relation":6}
+			],
+			"ignore_params":["ns","nk","special"],
+			"unique":{
+				"host":"youku.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1000,
+			"table_id":4,
+			"category":2,
+			"match":[
+				{"field":"host", "pattern":"www.tudou.com", "relation":1},
+				{"field":"path", "pattern":"^/\\w{8}/[^/]{11}/$", "relation":5},
+				{"field":"filename", "pattern":"^([^/]{11})\\.html", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"/programs/view/${1}/",
+				"filename":"",
+				"query":""
+			}
+		},
+		{
+			"id":1000,
+			"table_id":4,
+			"category":2,
+			"match":[
+				{"field":"host", "pattern":"www.tudou.com", "relation":1},
+				{"field":"path", "pattern":"^/programs/view/([^/]{11})(?:/|$)", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"/programs/view/${1}/",
+				"filename":"",
+				"query":""
+			}
+		},
+		{
+			"id":1001,
+			"table_id":2,
+			"category":2,
+			"match":[
+				{"field":"filename", "pattern":"h264_", "relation":3},
+				{"field":"path", "pattern":"^/\\w+/\\d+/$", "relation":5},
+				{"field":"host", "pattern":"\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$", "relation":5}
+			],
+			"unique":{
+				"host":"tudou.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1003,
+			"table_id":4,
+			"category":3,
+			"match":[
+				{"field":"host", "pattern":"hot.vrs.sohu.com", "relation":1},
+				{"field":"path", "pattern":"/", "relation":1},
+				{"field":"filename", "pattern":"vrs_flash.action", "relation":1},
+				{"field":"query", "pattern":"(?:\\?|&)vid=(\\d+)", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"${filename}",
+				"query":"?vid=${1}"
+			}
+		},
+		{
+			"id":1002,
+			"table_id":4,
+			"category":3,
+			"match":[
+				{"field":"host", "pattern":"my.tv.sohu.com", "relation":1},
+				{"field":"path", "pattern":"/play/", "relation":1},
+				{"field":"filename", "pattern":"videonew.do", "relation":1},
+				{"field":"query", "pattern":"(?:\\?|&)vid=(\\d+)", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"${filename}",
+				"query":"?vid=${1}"
+			}
+		},
+		{
+			"id":1004,
+			"table_id":2,
+			"category":3,
+			"match":[
+				{"field":"query", "pattern":"key=", "relation":3},
+				{"field":"host", "pattern":"^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$", "relation":5},
+				{"field":"path", "pattern":"^/sohu/\\w+/\\d+/\\d+/\\d+/$","relation":5},
+				{"field":"filename", "pattern":"\\w{22}\\.mp4", "relation":5}
+			],
+			"unique":{
+				"host":"sohu.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1005,
+			"table_id":4,
+			"category":4,
+			"match":[
+				{"field":"host", "pattern":"v.ifeng.com", "relation":1},
+				{"field":"path", "pattern":"^/video_info_new/[0-9a-f]/[0-9a-f]{2}/$", "relation":5},
+				{"field":"filename", "pattern":"^[0-9a-f\\-]{36}\\.xml$", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1006,
+			"table_id":2,
+			"category":4,
+			"match":[
+				{"field":"referer", "pattern":"img.ifeng.com/swf", "relation":3},
+				{"field":"path", "pattern":"/video", "relation":3},
+				{"field":"path", "pattern":"/video\\d+/\\d{4}/\\d{2}/\\d{2}/$", "relation":5},
+				{"field":"filename", "pattern":"^[0-9a-f\\-_]+\\.mp4$", "relation":5}
+			],
+			"unique":{
+				"host":"ifeng.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1007,
+			"table_id":2,
+			"category":4,
+			"match":[
+				{"field":"referer", "pattern":"img.ifeng.com/swf", "relation":3},
+				{"field":"path", "pattern":"/documentary(?://|/)\\d{4}/\\d{2}/\\d{2}/$", "relation":5},
+				{"field":"filename", "pattern":"^[0-9a-f\\-_]+\\.mp4$", "relation":5}
+			],
+			"unique":{
+				"host":"ifeng.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1008,
+			"table_id":4,
+			"category":5,
+			"match":[
+				{"field":"host", "pattern":"xml.ws.126.net", "relation":1},
+				{"field":"path", "pattern":"^/\\w+/\\w/\\w/$", "relation":5},
+				{"field":"filename", "pattern":"^\\d{4}_\\w{9}\\.xml$", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1009,
+			"table_id":4,
+			"category":5,
+			"match":[
+				{"field":"host", "pattern":"live.ws.126.net", "relation":1},
+				{"field":"path", "pattern":"^/\\w+/\\w/\\w/$", "relation":5},
+				{"field":"filename", "pattern":"^\\d_\\w{9}_\\w{9}\\.xml$", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1010,
+			"table_id":2,
+			"category":5,
+			"match":[
+				{"field":"domain", "pattern":"netease.com", "relation":1},
+				{"field":"extname", "pattern":"^(flv|mp4)$", "relation":5},
+				{"field":"filename", "pattern":"^.{13,17}$", "relation":5},
+				{"field":"query", "pattern":"(?:\\?|&)start=[1-9]", "relation":6}
+			],
+			"unique":{
+				"host":"netease.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1011,
+			"table_id":2,
+			"category":5,
+			"match":[
+				{"field":"path", "pattern":"netease.com", "relation":3},
+				{"field":"extname", "pattern":"^(flv|mp4)$", "relation":5},
+				{"field":"filename", "pattern":"^.{13,17}$", "relation":5},
+				{"field":"query", "pattern":"(?:\\?|&)start=[1-9]", "relation":6}
+			],
+			"unique":{
+				"host":"netease.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{   
+                        "id":1012,
+                        "table_id":4,
+                        "category":6,
+                        "match":[
+                                {"field":"host", "pattern":"v.ku6.com", "relation":1},
+                                {"field":"path", "pattern":"^/show/$", "relation":5},
+                                {"field":"filename", "pattern":"^[0-9a-zA-Z\\-\\._]{24}\\.html$", "relation":5}
+                        ],  
+                        "unique":{
+                                "host":"${host}",
+                                "path":"${path}",
+                                "filename":"${filename}",
+                                "query":""
+                        }   
+                },  
+                {   
+                        "id":1013,
+                        "table_id":4,
+                        "category":6,
+                        "match":[
+                                {"field":"host", "pattern":"v.ku6.com", "relation":1},
+                                {"field":"path", "pattern":"^/film/$", "relation":5},
+                                {"field":"filename", "pattern":"^index_\\d{5,7}\\.html$", "relation":5}
+                        ],  
+                        "unique":{
+                                "host":"${host}",
+                                "path":"${path}",
+                                "filename":"${filename}",
+                                "query":""
+                        }
+                },
+                {
+                        "id":1014,
+                        "table_id":4,
+                        "category":6,
+                        "match":[
+                                {"field":"host", "pattern":"v.ku6.com", "relation":1},
+                                {"field":"path", "pattern":"^/film/show_\\d{5,7}/$", "relation":5},
+                                {"field":"filename", "pattern":"^[0-9a-zA-Z\\-\\._]{24}\\.html$", "relation":5}
+                        ],
+                        "unique":{
+                                "host":"${host}",
+                                "path":"/show/",
+                                "filename":"${filename}",
+                                "query":""
+                        }
+                },
+                {
+                        "id":1015,
+                        "table_id":4,
+			"category":6,
+                        "match":[
+                                {"field":"host", "pattern":"v.ku6.com", "relation":1},
+                                {"field":"path", "pattern":"^/special/show_\\d{6,8}$", "relation":5},
+                                {"field":"filename", "pattern":"^[0-9a-zA-Z\\-\\._]{24}\\.html$", "relation":5}
+                        ],  
+                        "unique":{
+                                "host":"${host}",
+                                "path":"/show/",
+                                "filename":"${filename}",
+                                "query":""
+                        }   
+                },  
+                {   
+                        "id":1016,
+                        "table_id":2,
+                        "category":6,
+                        "match":[
+                                {"field":"host", "pattern":"main.gslb.ku6.com", "relation":1},
+                                {"field":"path", "pattern":"^/\\w{2}/[\\w\\-]{16}/\\d{13}/\\w{32}/\\d{13}/\\w+/\\w+/\\w+/$", "relation":5},
+                                {"field":"filename", "pattern":"^[\\w\\-\\.]+\\.f4v$", "relation":5},
+                                {"field":"query", "pattern":"^\\?uuid=.*?&(rate=\\d{3,4})", "relation":5},
+				{"field":"query", "pattern":"&snqpq=.*?&act=.*","relation":6},
+				{"field":"query", "pattern":"&ref=out","relation":6}
+                        ], 
+                        "unique":{
+                                "host":"ku6.com",
+                                "path":"/",
+                                "filename":"${filename}",
+                                "query":"?${1}"
+                        }   
+                },
+                {   
+                        "id":1017,
+                        "table_id":2,
+                        "category":6,
+                        "match":[
+                                {"field":"host", "pattern":"main.gslb.ku6.com", "relation":1},
+                                {"field":"path", "pattern":"^/\\w{2}/[\\w\\-]{16}/\\d{13}/\\w{32}/\\d{13}/\\w+/\\w+/\\w+/$", "relation":5},
+                                {"field":"filename", "pattern":"^[\\w\\-\\.]+\\.f4v$", "relation":5},
+                                {"field":"query", "pattern":"^\\?(rate=\\d{3,4})$", "relation":5},
+				{"field":"query", "pattern":"&snqpq=.*?&act=.*","relation":6},
+				{"field":"query", "pattern":"&ref=out","relation":6}
+                        ], 
+                        "unique":{
+                                "host":"ku6.com",
+                                "path":"/",
+                                "filename":"${filename}",
+                                "query":"?${1}"
+                        }   
+                },
+                {   
+                        "id":1018,
+                        "table_id":2,
+                        "category":6,
+                        "match":[
+                                {"field":"host", "pattern":"main.gslb.ku6.com", "relation":1},
+                                {"field":"path", "pattern":"^/\\w{2}/[\\w\\-]{16}/\\d{13}/\\w{32}/\\d{13}/\\w+/\\w+/\\w+/$", "relation":5},
+                                {"field":"filename", "pattern":"^[\\w\\-\\.]+\\.f4v$", "relation":5},
+                                {"field":"query", "pattern":"^\\?uuid=.*", "relation":5},
+				{"field":"query", "pattern":"&rate=","relation":6},
+				{"field":"query", "pattern":"&snqpq=.*?&act=.*","relation":6},
+				{"field":"query", "pattern":"&ref=out","relation":6}
+                        ], 
+                        "unique":{
+                                "host":"ku6.com",
+                                "path":"/",
+                                "filename":"${filename}",
+                                "query":"?rate=299"
+                        }   
+                },
+		{
+			"id":1019,
+			"table_id":4,
+			"category":7,
+			"match":[
+				{"field":"host", "pattern":"vxml.56.com", "relation":1},
+				{"field":"path", "pattern":"^/json/(\\d+|\\w+)/$", "relation":5},
+				{"field":"query", "pattern":"^\\?src=site$", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"",
+				"query":"${query}"
+			}
+		},
+		{
+			"id":1020,
+			"table_id":2,
+			"category":7,
+			"match":[
+				{"field":"path", "pattern":"/flvdownload", "relation":3},
+				{"field":"path", "pattern":"/flvdownload/\\d+/\\d+/$", "relation":5},
+				{"field":"filename", "pattern":"^[\\w_]+\\.flv$", "relation":5},
+				{"field":"query", "pattern":"start", "relation":4}
+			],
+			"ignore_params":["m","start","end"],
+			"unique":{
+				"host":"56.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{   
+                        "id":1021,
+                        "table_id":4,
+                        "category":8,
+                        "match":[
+                                {"field":"host", "pattern":"web-play.(?:pplive.cn|pptv.com)","relation":5},
+                                {"field":"filename","pattern":"^webplay3-0-\\d{8}\\.xml$","relation":5}
+                        ],  
+                        "unique":{
+                                "host":"${host}",
+                                "path":"/",
+                                "filename":"${filename}",
+                                "query":""
+                        }   
+                },  
+                {   
+                        "id":1022,
+                        "table_id":2,
+                        "category":8,
+                        "match":[    
+				{"field":"path", "pattern":"/\\d+/", "relation":5},
+                                {"field":"filename", "pattern":"^\\w{32}\\.mp4$", "relation":5},
+                                {"field":"query","pattern":"(\\?|&)k=.*","relation":5}
+                        ],  
+                        "unique":{
+                                "host":"pptv.com",
+                                "path":"${path}",
+                                "filename":"${filename}",
+                                "query":""
+                        }   
+                },
+		{
+			"id":1023,
+			"table_id":4,
+			"category":9,
+			"match":[
+				{"field":"host", "pattern":"ipanda.cntv.cn", "relation":1},
+				{"field":"path", "pattern":"/", "relation":5},
+				{"field":"filename", "pattern":"^home\\.php$", "relation":5},
+				{"field":"query", "pattern":"^\\?mod=space.+$", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"${filename}",
+				"query":"${query}"
+			}
+		},
+		{
+			"id":1024,
+			"table_id":4,
+			"category":9,
+			"match":[
+				{"field":"host", "pattern":"vdn.apps.cntv.cn", "relation":1},
+				{"field":"path", "pattern":"/api/", "relation":5},
+				{"field":"filename", "pattern":"^getHttpVideoInfo\\.do$", "relation":5},
+				{"field":"query", "pattern":"^(\\?pid=.+?)&.+&url=(.+?)&idl=.+modifyed=\\w{0,5}$", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"${filename}",
+				"query":"${1}${2}"
+			}
+		},
+		{
+			"id":1025,
+			"table_id":4,
+			"category":9,
+			"match":[
+				{"field":"host", "pattern":"xiyou.cntv.cn", "relation":1},
+				{"field":"path", "pattern":"/interface/", "relation":5},
+				{"field":"filename", "pattern":"^index", "relation":5},
+				{"field":"query", "pattern":"^\\?videoId=([\\w\\-]{36})&pid=\\d+","relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"${filename}",
+				"query":"?videoId=${1}"
+			}
+		},
+		{
+			"id":1026,
+			"table_id":2,
+			"category":9,
+			"match":[
+				{"field":"path", "pattern":"/flash", "relation":3},
+				{"field":"path", "pattern":"/flash/mp4video\\d{2}/TMS/\\d{4}/\\d{2}/\\d{2}/$", "relation":5},
+				{"field":"filename", "pattern":"^[\\w\\-]+\\.mp4$", "relation":5}
+			],
+			"ignore_params":["start","end"],
+			"unique":{
+				"host":"cntv.cn",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},		
+		{
+			"id":1027,
+			"table_id":2,
+			"category":9,
+			"match":[
+				{"field":"path", "pattern":"/flash", "relation":3},
+				{"field":"path", "pattern":"/flash/mp4video\\d{2}/TMS/\\w+/\\d{4}/\\d{2}/\\d{2}/$", "relation":5},
+				{"field":"filename", "pattern":"^[\\w\\-]+\\.mp4$", "relation":5}
+			],
+			"ignore_params":["start","end"],
+			"unique":{
+				"host":"cntv.cn",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1028,
+			"table_id":2,
+			"category":9,
+			"match":[
+				{"field":"path", "pattern":"/video", "relation":3},
+				{"field":"path", "pattern":"/video\\d*/\\d{4}/\\d{2}/\\d{2}/\\d{2}/$", "relation":5},
+				{"field":"filename", "pattern":"^[\\w\\-]+\\.mp4$", "relation":5}
+			],
+			"ignore_params":["start","end"],
+			"unique":{
+				"host":"cntv.cn",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1029,
+			"table_id":4,
+			"category":10,
+			"match":[
+				{"field":"host", "pattern":"play.baomihua.com", "relation":1},
+				{"field":"path", "pattern":"/", "relation":5},
+				{"field":"filename", "pattern":"^getvideourl\\.aspx$", "relation":5},
+				{"field":"query", "pattern":"\\?flvid=\\d{8}$", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"${filename}",
+				"query":"${query}"
+			}
+		},
+		{
+			"id":1030,
+			"table_id":4,
+			"category":10,
+			"match":[
+				{"field":"host", "pattern":"ys.play.baomihua.com", "relation":1},
+				{"field":"path", "pattern":"/movieandtvapi\\.asmx/", "relation":5},
+				{"field":"filename", "pattern":"GetVideoSource","relation":5},
+				{"field":"query", "pattern":"\\?videoId=\\d{8}&flag=xml$", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"${filename}",
+				"query":"${query}"
+			}
+		},
+		{
+			"id":1031,
+			"table_id":2,
+			"category":10,
+			"match":[
+				{"field":"path", "pattern":"/pomoho_video/", "relation":3},
+				{"field":"filename", "pattern":"^\\d{8}\\.(flv|mp4)$", "relation":5}
+			],
+			"unique":{
+				"host":"baomihua.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1032,
+			"table_id":2,
+			"category":10,
+			"match":[
+				{"field":"path", "pattern":"/pomoho_video/\\d{6}/", "relation":5},
+				{"field":"filename", "pattern":"^\\d{8}\\.(flv|mp4)$", "relation":5}
+			],
+			"unique":{
+				"host":"baomihua.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1033,
+			"table_id":2,
+			"category":10,
+			"match":[
+				{"field":"path", "pattern":"/pomoho_video/", "relation":5},
+				{"field":"filename", "pattern":"^[\\w-]{36}\\.(flv|mp4)$", "relation":5}
+			],
+			"unique":{
+				"host":"baomihua.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1034,
+			"table_id":4,
+			"category":11,
+			"match":[
+				{"field":"host", "pattern":"www.v1.cn","relation":1},
+				{"field":"path","pattern":"^/[0-9\\-]{10}/$","relation":5},
+				{"field":"filename","pattern":"^\\d{6}\\.shtml$","relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1035,
+			"table_id":2,
+			"category":11,
+			"match":[			
+				{"field":"path", "pattern":"/group", "relation":3},
+				{"field":"path", "pattern":"/group\\d*/\\w{3}/\\w{2}/\\w{2}/$", "relation":5},
+				{"field":"filename", "pattern":"^[\\w-]{30}\\.flv$", "relation":5}
+			],
+			"unique":{
+				"host":"v1.cn",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1036,
+			"table_id":4,
+			"category":12,
+			"match":[
+				{"field":"host", "pattern":"msx.app.joy.cn", "relation":1},
+				{"field":"path", "pattern":"/", "relation":5},
+				{"field":"filename", "pattern":"^service\\.php$", "relation":5},
+				{"field":"query", "pattern":"^(\\?action=msxv6&showad=true&videoid=\\d*&playertype=joyplayer)&nocache=\\d*$", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"${filename}",
+				"query":"${1}"
+			}
+		},
+		{
+			"id":1037,
+			"table_id":4,
+			"category":12,
+			"match":[
+				{"field":"host", "pattern":"msx.app.joy.cn", "relation":1},
+				{"field":"path", "pattern":"/", "relation":5},
+				{"field":"filename", "pattern":"^service\\.php$", "relation":5},
+				{"field":"query", "pattern":"^(\\?action=vodmsxv6&showad=true&chanelid=\\d+&programid=\\d*&volumnid=\\d*&playertype=joyplayer)&nocache=\\d*$", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"${filename}",
+				"query":"${1}"
+			}
+		},
+		{
+			"id":1038,
+			"table_id":2,
+			"category":12,
+			"match":[
+				{"field":"path", "pattern":"/boke", "relation":3},
+				{"field":"path", "pattern":"/boke/wap/\\d+/\\d+/$", "relation":5},
+				{"field":"filename", "pattern":"^[\\w]+\\.flv$", "relation":5}
+			],
+			"unique":{
+				"host":"joy.cn",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1039,
+			"table_id":2,
+			"category":12,
+			"match":[
+				{"field":"path", "pattern":"/boke", "relation":3},
+				{"field":"path", "pattern":"/boke/\\w+/\\w+/\\w+/\\w+/\\d{8}/$", "relation":5},
+				{"field":"filename", "pattern":"^[\\w\\-]+\\.flv$", "relation":5}
+			],
+			"unique":{
+				"host":"joy.cn",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1040,
+			"table_id":2,
+			"category":12,
+			"match":[
+				{"field":"path", "pattern":"/boke", "relation":3},
+				{"field":"path", "pattern":"/boke/\\w+/\\w+/\\w+/\\w+/$", "relation":5},
+				{"field":"filename", "pattern":"^([\\w\\-]+\\.flv).flv$", "relation":5}
+			],
+			"unique":{
+				"host":"joy.cn",
+				"path":"/",
+				"filename":"${1}",
+				"query":""
+			}
+		},
+		{
+			"id":1041,
+			"table_id":2,
+			"category":12,
+			"match":[
+				{"field":"path", "pattern":"/boke", "relation":3},
+				{"field":"path", "pattern":"/boke/\\w+/\\w+/\\w+/\\w+/\\d+/\\d+/$", "relation":5},
+				{"field":"filename", "pattern":"^([\\w\\-]+\\.flv).flv$", "relation":5}
+			],
+			"unique":{
+				"host":"joy.cn",
+				"path":"/",
+				"filename":"${1}",
+				"query":""
+			}
+		},
+		{
+			"id":1042,
+			"table_id":2,
+			"category":12,
+			"match":[
+				{"field":"path", "pattern":"/boke", "relation":3},
+				{"field":"path", "pattern":"/boke/T\\w+/\\w+/\\w+/$", "relation":5},
+				{"field":"filename", "pattern":"^[\\w\\-]+\\.flv$", "relation":5}
+			],
+			"unique":{
+				"host":"joy.cn",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{   
+                        "id":1043,
+                        "table_id":4,
+                        "category":13,
+                        "match":[
+                                {"field":"path", "pattern":"/", "relation":1},
+                                {"field":"host", "pattern":"live.\\.l\\.qq\\.com", "relation":5},    
+                                {"field":"filename", "pattern":"^livemsg$", "relation":5},
+				{"field":"query", "pattern":"\\?.*&vid=(\\w{11}).*&url=[^%]*?(?:&|$)", "relation":5},
+				{"field":"query", "pattern":"(/cover/|/page/|/prev/|/kid/|/yyt/|/ttk/|/sports/)", "relation":5}
+                        ],  
+                        "unique":{
+                                "host":"${host}",
+                                "path":"${path}",
+                                "filename":"${filename}",
+                                "query":"?vid=${1}"
+                        }
+		},
+		{
+			
+                        "id":1044,
+                        "table_id":2,
+                        "category":13,
+                        "match":[
+                                {"field":"path", "pattern":"/\\w+/\\w+/\\w+/", "relation":5},
+                                {"field":"filename", "pattern":"^\\w{11}\\.\\w+\\.\\d+\\.(?:mp4|flv)$", "relation":5}
+                        ],
+                        "unique":{
+                                "host":"qq.com",
+                                "path":"/",
+                                "filename":"${filename}",
+                                "query":""
+                        }
+		},
+		{   
+                        "id":1045,
+                        "table_id":2,
+                        "category":13,
+                        "match":[
+                                {"field":"path", "pattern":"/.+tc", "relation":5},
+                                {"field":"path", "pattern":"/.+tc\\.qq\\.com/", "relation":5},
+                                {"field":"filename", "pattern":"^\\w{11}\\.\\w+\\.\\d+\\.(?:mp4|flv)$", "relation":5}
+                        ],
+                        "unique":{
+                                "host":"qq.com",
+                                "path":"/",
+                                "filename":"${filename}",
+                                "query":""
+                        }
+                },
+		{   
+                        "id":1046,
+                        "table_id":2,
+                        "category":14,
+                        "match":[
+				{"field":"host", "pattern":"edge.v.iask.com.lxdns.com", "relation":1},
+                                {"field":"filename", "pattern":"^\\d+\\.hlv$", "relation":5},
+				{"field":"query", "pattern":"\\?KID=sina,viask&Expires=\\d+&ssig=.+", "relation":5}
+                        ],
+                        "unique":{
+                                "host":"sina.com",
+                                "path":"/",
+                                "filename":"${filename}",
+                                "query":""
+                        }
+                },
+		{
+			"id":1047,
+			"table_id":4,
+			"category":2,
+			"match":[
+				{"field":"host", "pattern":"www.tudou.com", "relation":1},
+				{"field":"path", "pattern":"^/crp/$", "relation":5},
+				{"field":"filename", "pattern":"^getOtherItemInfo\\.action", "relation":5},
+				{"field":"query", "pattern":"\\?ics=([^/]{11})", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"/programs/view/${1}/",
+				"filename":"",
+				"query":""
+			}
+		},
+		{
+			"id":1048,
+			"table_id":4,
+			"category":1,
+			"match":[
+				{"field":"path", "pattern":"^/vvcounter/$", "relation":5},
+				{"field":"filename", "pattern":"^incr_by_app\\.json$", "relation":5},
+				{"field":"query", "pattern":"\\?appkey=\\w+&vid=(.{13})", "relation":5}
+			],
+			"unique":{
+				"host":"v.youku.com",
+				"path":"/player/getPlayList/VideoIDS/${1}/",
+				"filename":"",
+				"query":""
+			}
+		},
+		{   
+                        "id":1049,
+                        "table_id":2,
+                        "category":14,
+                        "match":[
+				{"field":"path", "pattern":"/edge.v.iask.com/", "relation":1},
+                                {"field":"filename", "pattern":"^\\d+\\.hlv$", "relation":5},
+				{"field":"query", "pattern":"\\?KID=sina,viask&Expires=\\d+&ssig=.+", "relation":5}
+                        ],
+                        "unique":{
+                                "host":"sina.com",
+                                "path":"/",
+                                "filename":"${filename}",
+                                "query":""
+                        }
+                },
+		{   
+                        "id":1050,
+                        "table_id":4,
+                        "category":8,
+                        "match":[
+				{"field":"host", "pattern":"client-play\\.(?:pplive.cn|pptv.com)","relation":5},
+				{"field":"path", "pattern":"^/\\w{2}/", "relation":5},
+                                {"field":"filename", "pattern":"^chplay3-\\d+-(\\d{8})\\.xml","relation":5}
+                        ],  
+                        "unique":{
+                                "host":"web-play.pptv.com",
+                                "path":"/",
+                                "filename":"webplay3-0-${1}.xml",
+                                "query":""
+                        }   
+                },
+		{
+			"id":1051,
+			"table_id":2,
+			"category":15,
+			"match":[
+				{"field":"path", "pattern":"^/videos/\\w+/\\d{8}/", "relation":5},
+				{"field":"filename", "pattern":"^\\w{32}.(?:f4v|mp4)$", "relation":5},
+				{"field":"query", "pattern":"(?:\\?|&)key=", "relation":5}	
+			],
+			"unique":{
+				"host":"iqiyi.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			},
+			"ignore_params":["range","start"]
+		},
+		{
+			"id":1052,
+			"table_id":4,
+			"category":1,
+			"match":[
+				{"field":"path", "pattern":"^/playlist/$", "relation":5},
+				{"field":"filename", "pattern":"^m3u8$", "relation":5},
+				{"field":"query", "pattern":"(?:\\?|&)vid=(.{13})", "relation":5},
+				{"field":"query", "pattern":"(?:\\?|&)type=\\w+", "relation":5},
+				{"field":"query", "pattern":"(?:\\?|&)keyframe=1", "relation":5}
+			],
+			"unique":{
+				"host":"v.youku.com",
+				"path":"/player/getPlayList/VideoIDS/${1}/",
+				"filename":"",
+				"query":""
+			}
+		},
+		{
+			"id":1053,
+			"table_id":2,
+			"category":1,
+			"match":[
+				{"field":"path", "pattern":"^/[\\dA-F]+/$", "relation":5},
+				{"field":"filename", "pattern":"^[\\dA-F-]+\\.(?:flv|mp4)(?:\\.ts$|$)", "relation":5},
+				{"field":"query", "pattern":"(?:\\?|&)(ts_start=[\\d\\.]+&ts_end=[\\d\\.]+&ts_seg_no=\\d+)&ts_keyframe=.*", "relation":5}
+			],
+			"unique":{
+				"host":"youku.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":"${1}"
+			}
+		},
+		{
+			"id":1054,
+			"table_id":4,
+			"category":15,
+			"match":[
+				{"field":"host", "pattern":"cache.video.qiyi.com", "relation":1},
+				{"field":"path", "pattern":"^/vi/\\d+/[0-9a-f]{32}", "relation":5}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"${path}",
+				"filename":"",
+				"query":""
+			}
+		},
+		{
+			"id":1055,
+			"table_id":4,
+			"category":16,
+			"match":[
+				{"field":"host", "pattern":"api.letv.com", "relation":1},
+				{"field":"path", "pattern":"/mms/out/video/", "relation":5},
+				{"field":"filename", "pattern":"play", "relation":5},
+				{"field":"query", "pattern":"\\?id=(\\d+)&", "relation":5}
+			],
+			"unique":{
+				"host":"www.letv.com",
+				"path":"/ptv/vplay/",
+				"filename":"${1}.html",
+				"query":""
+			}
+		},
+		{
+			"id":1056,
+			"table_id":2,
+			"category":16,
+			"match":[
+				{"field":"path", "pattern":"letv-uts", "relation":3},
+				{"field":"path", "pattern":"letv-uts/\\d+/ver_\\d+_\\d+-\\d+-avc-\\d+-aac-\\d+-\\d+-\\d+-[0-9a-f]{32}-\\d+_\\w+/", "relation":5},
+				{"field":"filename", "pattern":"ver_.+?\\.ts", "relation":5}
+			],
+			"ignore_params":["rstart","rend"],
+			"unique":{
+				"host":"letv.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1057,
+			"table_id":2,
+			"category":16,
+			"match":[
+				{"field":"path", "pattern":"letv-uts", "relation":3},
+				{"field":"filename", "pattern":"\\d+-AVC-\\d+-AAC-\\d+-\\d+-\\d+-[0-9a-f]{32}-\\d+\\.letv", "relation":5},
+				{"field":"query", "pattern":"begin", "relation":4}
+			],
+			"ignore_params":["rstart","rend"],
+			"unique":{
+				"host":"letv.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1058,
+			"table_id":2,
+			"category":16,
+			"match":[
+				{"field":"path", "pattern":"letv-uts", "relation":3},
+				{"field":"filename", "pattern":"ver_\\d+_\\d+-\\d+-avc-\\d+-aac-\\d+-\\d+-\\d+-[0-9a-f]{32}-\\d+\\.letv", "relation":5},
+				{"field":"query", "pattern":"begin", "relation":4}
+			],
+			"ignore_params":["rstart","rend"],
+			"unique":{
+				"host":"letv.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1059,
+			"table_id":2,
+			"category":17,
+			"match":[
+				{"field":"host", "pattern":"\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$", "relation":5},
+				{"field":"path", "pattern":"/play/(?:[0-9A-F]{40}/|)", "relation":5},
+				{"field":"filename", "pattern":".*?\\.mp4", "relation":5},
+				{"field":"query", "pattern":"start", "relation":6}				
+			],
+			"unique":{
+				"host":"funshion.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1060,
+			"table_id":2,
+			"category":17,
+			"match":[
+				{"field":"path", "pattern":"/v1/", "relation":1},
+				{"field":"host", "pattern":"\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$", "relation":5},
+				{"field":"filename", "pattern":".*?\\.mp4", "relation":5}
+			],
+			"unique":{
+				"host":"funshion.com",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1061,
+			"table_id":2,
+			"category":18,
+			"match":[
+				{"field":"path", "pattern":"^/media/new(?:/\\d{4}/icntv2/media|)/\\d{4}/\\d{2}/\\d{2}/", "relation":5},
+				{"field":"host", "pattern":"(?:icntv\\.cctvcdn\\.net|^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$", "relation":5},
+				{"field":"filename", "pattern":".*?\\.ts$", "relation":5}
+
+			],
+			"unique":{
+				"host":"icntv.cctvcdn.net",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1063,
+            "table_id":2,
+            "category":14,
+            "match":[
+                {"field":"filename", "pattern":"^\\d{9,}\\.hlv$", "relation":5},
+				{"field":"path", "pattern":"^/\\d+/\\w+/\\d+/\\d+/$", "relation":5},
+				{"field":"referer", "pattern":"sina.com.cn", "relation":3}
+            ],
+            "unique":{
+                "host":"sina.com",
+                "path":"/",
+                "filename":"${filename}",
+                "query":""
+            }
+        },
+		{
+			"id":1064,
+			"table_id":200,
+			"category":1,
+			"match":[
+				{"field":"path", "pattern":"/live/flv/", "relation":1},
+				{"field":"host", "pattern":"\\.cntv\\.cn$", "relation":5},
+				{"field":"filename", "pattern":"^channel\\d+\\.flv$", "relation":5},
+				{"field":"query", "pattern":"redir", "relation":4}
+			],
+			"unique":{
+				"host":"cntv.cn",
+				"path":"/live/flv/",
+				"filename":"${filename}",
+				"query":""
+			}
+		},
+		{
+			"id":1065,
+			"table_id":200,
+			"category":0,
+			"match":[
+				{"field":"path", "pattern":"^/\\w+\\.v\\.iask\\.com/(\\d+)/\\d+/$", "relation":5},
+				{"field":"filename", "pattern":"^(\\d+c\\d+k)\\d+_\\d+\\.(flv|ts)$", "relation":5},
+				{"field":"query", "pattern":"redir", "relation":4}
+			],
+			"unique":{
+				"host":"v.iask.com",
+				"path":"${1}",
+				"filename":"${2}${3}",
+				"query":""
+			}
+		},
+		{
+			"id":1066,
+			"table_id":200,
+			"category":0,
+			"match":[
+				{"field":"path", "pattern":"/mtv.v.iask.com/vod/", "relation":1},
+				{"field":"filename", "pattern":"^(\\d+_[a-z\\d]+_)\\d+\\.(flv|ts)$", "relation":5},
+				{"field":"query", "pattern":"redir", "relation":4}
+			],
+			"unique":{
+				"host":"v.iask.com",
+				"path":"/mtv.v.iask.com/vod/",
+				"filename":"${1}${2}",
+				"query":""
+			}
+		},
+		{
+			"id":1067,
+			"table_id":200,
+			"category":0,
+			"match":[
+				{"field":"path", "pattern":"^/cache/\\d+_/seg\\d/$", "relation":5},
+				{"field":"filename", "pattern":"^index(?:Seg\\d+-Frag\\d+|\\d+\\[\\d+\\]\\.(flv|ts))$", "relation":5},
+				{"field":"query", "pattern":"redir", "relation":4}
+			],
+			"unique":{
+				"host":"cntv.cn",
+				"path":"${path}",
+				"filename":"${1}",
+				"query":""
+			}
+		},
+		{
+			"id":1068,
+			"table_id":201,
+			"category":0,
+			"match":[
+				{"field":"host", "pattern":"video.sina.com.cn", "relation":1},
+				{"field":"path", "pattern":"/l/pl/sportstv/", "relation":1},
+				{"field":"filename", "pattern":"^\\d+\\.html$", "relation":5},
+				{"field":"query", "pattern":"", "relation":1}
+			],
+			"unique":{
+				"host":"video.sina.com.cn",
+				"path":"/l/pl/sportstv/",
+				"filename":"",
+				"query":""
+			}
+		},
+		{
+			"id":1062,
+			"table_id":2,
+			"category":0,
+			"match":[
+				{"field":"filename", "pattern":"^.{5,}\\.(?:ts|mp4|flv|f4v|hlv|rmvb|3gp|wmv|avi|asf|rm|mpg|mpeg|mpe|divx|mkv|vob)$", "relation":5},
+				{"field":"query", "pattern":"", "relation":1}
+			],
+			"unique":{
+				"host":"${host}",
+				"path":"/",
+				"filename":"${filename}",
+				"query":""
+			}
+		}
+	]
+}
